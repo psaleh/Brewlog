@@ -23,13 +23,6 @@ pink   	= 'a495bb80c5b14b44b5121370f02d74de'
 #The default device for bluetooth scan. If you're using a bluetooth dongle you may have to change this.
 dev_id = 0
 
-#function to calculate the number of days since epoch (used by google sheets)
-#In python time.time() gives number of seconds since epoch (Jan 1 1970).
-#Google Sheets datetime as a number is the number of days since the epoch except their epoch date is Jan 1 1900
-def sheetsDate(date1):
-	temp = datetime.datetime(1899, 12, 30)
-	delta=date1-temp
-	return float(delta.days) + (float(delta.seconds) / 86400)
 
 #scan BLE advertisements until we see one matching our tilt uuid
 def getdata():
@@ -55,7 +48,7 @@ def getdata():
 
 				gotData = 1
 
-				tiltTime = sheetsDate(datetime.datetime.now())
+				tiltTime = 1 
 				tiltSG = float(output[3])/1000
 				tiltTemp = tempf
 				tiltColour = 'GREEN'
