@@ -1,0 +1,12 @@
+FROM python:2
+
+WORKDIR /usr/src/app
+
+COPY requirements.txt ./
+RUN pip install --no-cache-dir --egg -r requirements.txt
+
+COPY server.py /run/server.py
+COPY python_mysql_connect1.py /run/server.py
+CMD [ "python", "/run/server.py" ]
+
+EXPOSE 12345
