@@ -54,6 +54,7 @@ if __name__ == '__main__':
       colour = jdata['Colour']
       name = jdata['Beer']
       temp = jdata['Temp']
+      temp = (temp - 32)*0.5556
       time = jdata['Time']
       sg = jdata['SG']
       connect(name, colour, sg, temp)
