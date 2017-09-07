@@ -8,7 +8,5 @@ RUN pip install --upgrade pip
 COPY requirements.txt ./
 RUN pip install -r requirements.txt
 
-COPY server.py /run/server.py
-CMD [ "python", "/run/server.py" ]
-
-EXPOSE 12345
+#COPY server.py /run/server.py
+#CMD [ "python", "/run/server.py" ]

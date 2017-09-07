@@ -1,43 +1,16 @@
-#!/usr/bin/python           # This is server.py file
+import socket
+import json
+from pymongo import MongoClient
+# pprint library is used to make the output look more pretty
+from pprint import pprint
 
-import socket               # Import socket module
-import json                 # Import JSON Module
-import mysql.connector
-from mysql.connector import Error
-#import csv
-
-def connect(name, colour, sg, temp):
-    query = "INSERT INTO testtable (Name,Colour,SG,temp) VALUES(%s,%s,%s,%s)"
-    args = (name, colour, sg, temp)
-
-
-    """ Connect to MySQL database """
-    try:
-        conn = mysql.connector.connect(host='brewlog_db_1',
-                                       database='brewlog',
-                                       user='brewlog',
-                                       password='brewlog')
-        if conn.is_connected():
-            print('Connected to MySQL database')
-
-            cursor = conn.cursor()
-            cursor.execute(query, args)
-
-            if cursor.lastrowid:
-               print('last insert id', cursor.lastrowid)
-            else:
-               print('last insert id not found')
-
-            conn.commit()
-
-    except Error as e:
-        print(e)
-
-    finally:
-        conn.close()
-        conn.close()
-
-
+def mongoinsert(name, colour, sg, temp):
+    # connect to MongoDB
+    client = MongoClient("mongodb://brewlog_db_1")
+    db=client.admin
+    # Issue the serverStatus command and print the results
+    serverStatusResult=db.command("serverStatus")
+    pprint(serverStatusResult)
 
 if __name__ == '__main__':
    s = socket.socket()         # Create a socket object
@@ -57,7 +30,7 @@ if __name__ == '__main__':
       temp = (temp - 32)*0.5556
       time = jdata['Time']
       sg = jdata['SG']
-      connect(name, colour, sg, temp)
+#      mongoinsert(name, colour, sg, temp)
 # print received data to stdout
       print jdata['Colour']
       print jdata['Beer']
@@ -65,5 +38,4 @@ if __name__ == '__main__':
       print jdata['SG']
       print jdata['Time']
       c.send('Data Received')
-      c.close()                # Close the connection
-                         
+      c.close()

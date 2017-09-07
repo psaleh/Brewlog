@@ -1,14 +1,14 @@
 #!/usr/bin/python           # This is server.py file
 
 import socket               # Import socket module
-import json		    # Import JSON Module
+import json                 # Import JSON Module
 import mysql.connector
 from mysql.connector import Error
 #import csv
 
-def connect(name, colour, sg, temp, time):
-    query = "INSERT INTO BotH(Name,Colour,SG,Temperature,Time) VALUES(%s,%s,%s,%s,%s)"
-    args = (name, colour, sg, temp, time)
+def connect(name, colour, sg, temp):
+    query = "INSERT INTO testtable (Name,Colour,SG,temp) VALUES(%s,%s,%s,%s)"
+    args = (name, colour, sg, temp)
 
 
     """ Connect to MySQL database """
@@ -19,20 +19,20 @@ def connect(name, colour, sg, temp, time):
                                        password='brewlog')
         if conn.is_connected():
             print('Connected to MySQL database')
-            
+
             cursor = conn.cursor()
             cursor.execute(query, args)
-  
+
             if cursor.lastrowid:
                print('last insert id', cursor.lastrowid)
             else:
                print('last insert id not found')
 
             conn.commit()
- 
+
     except Error as e:
         print(e)
- 
+
     finally:
         conn.close()
         conn.close()
@@ -54,10 +54,10 @@ if __name__ == '__main__':
       colour = jdata['Colour']
       name = jdata['Beer']
       temp = jdata['Temp']
+      temp = (temp - 32)*0.5556
       time = jdata['Time']
       sg = jdata['SG']
-      connect(name, colour, sg, temp, time)
-      
+      connect(name, colour, sg, temp)
 # print received data to stdout
       print jdata['Colour']
       print jdata['Beer']
@@ -66,3 +66,4 @@ if __name__ == '__main__':
       print jdata['Time']
       c.send('Data Received')
       c.close()                # Close the connection
+                         

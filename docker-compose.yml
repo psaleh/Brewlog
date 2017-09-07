@@ -21,6 +21,8 @@ services:
      depends_on:
        - db
      image: psaleh/python-server-mongo
+     volumes:
+       - ./server.py:/run/server.py
      ports:
        - "12345:12345"
      restart: always
