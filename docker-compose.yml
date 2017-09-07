@@ -20,7 +20,7 @@ services:
    receiver:
      depends_on:
        - db
-     image: python-server
+     image: psaleh/python-server-mongo
      ports:
        - "12345:12345"
      restart: always
