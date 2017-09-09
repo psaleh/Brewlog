@@ -24,8 +24,7 @@ services:
      volumes:
        - ./python-server/src:/run
      ports:
-       - "12345:12345"
-     restart: always
+       - "12346:12346"
 
 volumes:
     mongo_data:

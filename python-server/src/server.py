@@ -16,7 +16,7 @@ def mongoinsert(jdata):
 if __name__ == '__main__':
    s = socket.socket()         # Create a socket object
    host = socket.gethostname() # Get local machine name
-   port = 12345                # Reserve a port for your service.
+   port = 12346                # Reserve a port for your service.
    s.bind((host, port))        # Bind to the port
 
    s.listen(5)                 # Now wait for client connection.

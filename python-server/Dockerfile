@@ -10,3 +10,4 @@ RUN pip install -r requirements.txt
 
 #COPY src/server.py /run/server.py
 #CMD [ "python", "/run/server.py" ]
+EXPOSE 12346
