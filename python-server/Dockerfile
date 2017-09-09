@@ -9,5 +9,5 @@ COPY requirements.txt ./
 RUN pip install -r requirements.txt
 
 #COPY src/server.py /run/server.py
-#CMD [ "python", "/run/server.py" ]
-EXPOSE 12346
+CMD [ "python", "/run/server.py" ]
+EXPOSE 12347
