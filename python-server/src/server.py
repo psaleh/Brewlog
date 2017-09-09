@@ -4,13 +4,14 @@ from pymongo import MongoClient
 # pprint library is used to make the output look more pretty
 from pprint import pprint
 
-def mongoinsert(name, colour, sg, temp):
+def mongoinsert(jdata):
     # connect to MongoDB
     client = MongoClient("mongodb://brewlog_db_1")
-    db=client.admin
+    db=client.testbrew
+    db.testbrew.insert_one(jdata)
     # Issue the serverStatus command and print the results
-    serverStatusResult=db.command("serverStatus")
-    pprint(serverStatusResult)
+    #serverStatusResult=db.command("serverStatus")
+    #pprint(serverStatusResult)
 
 if __name__ == '__main__':
    s = socket.socket()         # Create a socket object
@@ -26,11 +27,11 @@ if __name__ == '__main__':
       jdata = json.loads(data.decode('utf-8'))
       colour = jdata['Colour']
       name = jdata['Beer']
-      temp = jdata['Temp']
-      temp = (temp - 32)*0.5556
+      tempf = jdata['Temp']
+      temp = (tempf -32) * 5.0/9.0
       time = jdata['Time']
       sg = jdata['SG']
-#      mongoinsert(name, colour, sg, temp)
+      mongoinsert(jdata)
 # print received data to stdout
       print jdata['Colour']
       print jdata['Beer']

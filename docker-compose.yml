@@ -22,7 +22,7 @@ services:
        - db
      image: psaleh/python-server-mongo
      volumes:
-       - ./server.py:/run/server.py
+       - ./python-server/src:/run
      ports:
        - "12345:12345"
      restart: always
