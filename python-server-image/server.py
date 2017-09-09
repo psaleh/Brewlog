@@ -53,7 +53,8 @@ if __name__ == '__main__':
       jdata = json.loads(data.decode('utf-8'))
       colour = jdata['Colour']
       name = jdata['Beer']
-      temp = jdata['Temp']
+      tempf = jdata['Temp']
+      temp = (tempf - 32) * 5.0/9.0 
       time = jdata['Time']
       sg = jdata['SG']
       connect(name, colour, sg, temp)
